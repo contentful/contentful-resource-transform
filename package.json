@@ -4,7 +4,7 @@
   "description": "Apply transforms to Contentful resources or collections thereof",
   "main": "index.js",
   "scripts": {
-    "test": "buster-test"
+    "test": "markdown-code-blocks -t javascript < README.md | node && buster-test"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "dependencies": {
     "bluebird": "^2.2.2",
     "map-sync": "^0.1.1",
+    "markdown-code-blocks": "0.0.1",
     "xtend": "^3.0.0"
   }
 }
