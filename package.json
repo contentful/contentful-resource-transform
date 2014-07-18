@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com:contentful/contentful-resource-transform/issues"
   },
-  "homepage": "https://github.com:contentful/contentful-resource-transform"
+  "homepage": "https://github.com:contentful/contentful-resource-transform",
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "map-sync": "^0.1.1",
+    "xtend": "^3.0.0"
+  }
 }
