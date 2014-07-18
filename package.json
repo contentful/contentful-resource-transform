@@ -1,6 +1,6 @@
 {
   "name": "contentful-resource-transform",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Apply transforms to Contentful resources or collections thereof",
   "main": "index.js",
   "scripts": {
