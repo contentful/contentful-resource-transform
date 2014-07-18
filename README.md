@@ -4,7 +4,7 @@ Apply transforms to Contentful resources or collections thereof.
 
 ## Synopsis
 
-Create a transform function by passing the function we want to apply to each resource to `createTransform`.
+Create a transform function by passing the function you want to apply to each resource to `createTransform`.
 
 ```javascript
 var assert = require('assert');
