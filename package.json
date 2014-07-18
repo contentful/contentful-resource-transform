@@ -11,7 +11,8 @@
     "url": "git@github.com:contentful/contentful-resource-transform.git"
   },
   "devDependencies": {
-    "buster": "~0.7.13"
+    "buster": "~0.7.13",
+    "markdown-code-blocks": "0.0.1"
   },
   "author": "Contentful GmbH",
   "license": "MIT",
@@ -22,7 +23,6 @@
   "dependencies": {
     "bluebird": "^2.2.2",
     "map-sync": "^0.1.1",
-    "markdown-code-blocks": "0.0.1",
     "xtend": "^3.0.0"
   }
 }
