@@ -1,6 +1,4 @@
 'use strict';
-var Promise = require('bluebird');
-
 var buster = require('buster');
 var describe = buster.spec.describe;
 var it = buster.spec.it;
@@ -10,33 +8,33 @@ var createTransform = require('../../');
 
 describe('transforming array resources', function () {
 
-  var arrayResource = {
-    sys: { type: 'Array' },
-    items: [
-      {
-        sys: { type: 'Entry', id: 'Whatever' }
-      }
-    ],
-    includes: {
-      ContentType: [
-        {
-          sys: { type: 'ContentType', id: 'Yeah' }
-        }
-      ]
-    }
-  };
-
-  var transform = createTransform(function (resource) {
+  var collapseToIds = createTransform(function (resource) {
     return resource.sys.type + '!' + resource.sys.id;
   });
 
-  return transform(arrayResource).then(function (result) {
-    assert.equals(result, {
+  it('Transforms all items and includes in an Array resource', function () {
+    return collapseToIds({
       sys: { type: 'Array' },
-      items: [ 'Entry!Whatever' ],
+      items: [
+        {
+          sys: { type: 'Entry', id: 'Whatever' }
+        }
+      ],
       includes: {
-        ContentType: [ 'ContentType!Yeah' ]
+        ContentType: [
+          {
+            sys: { type: 'ContentType', id: 'Yeah' }
+          }
+        ]
       }
+    }).then(function (result) {
+      assert.equals(result, {
+        sys: { type: 'Array' },
+        items: [ 'Entry!Whatever' ],
+        includes: {
+          ContentType: [ 'ContentType!Yeah' ]
+        }
+      });
     });
   });
 });
