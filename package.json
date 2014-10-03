@@ -23,6 +23,6 @@
   "dependencies": {
     "bluebird": "^2.2.2",
     "map-sync": "^0.1.1",
-    "xtend": "^3.0.0"
+    "xtend": "^4.0.0"
   }
 }
