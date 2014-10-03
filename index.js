@@ -20,6 +20,7 @@ function createTransform (converters) {
   return transform;
 
   function transform (resource) {
+    var extraArgs = Array.prototype.slice.call(arguments, 1);
     if (resource.sys.type === 'Array') {
       return Promise.join(
         convertResources(resource.items),
@@ -34,9 +35,11 @@ function createTransform (converters) {
     } else {
       return Promise.resolve(resource);
     }
-  }
 
-  function convertResources (array) {
-    return Promise.map(array, transform);
+    function convertResources (array) {
+      return Promise.map(array, function (item) {
+        return transform.apply(null, [item].concat(extraArgs));
+      });
+    }
   }
 }
