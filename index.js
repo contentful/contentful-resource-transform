@@ -24,7 +24,7 @@ function createTransform (converters) {
     if (resource.sys.type === 'Array') {
       return Promise.join(
         convertResources(resource.items),
-        Promise.props(map(resource.includes || {}, convertResources))
+        convertIncludes(resource.includes)
       ).spread(function (items, includes) {
         return xtend(resource, { items: items, includes: includes });
       });
@@ -40,6 +40,14 @@ function createTransform (converters) {
       return Promise.map(array, function (item) {
         return transform.apply(null, [item].concat(extraArgs));
       });
+    }
+
+    function convertIncludes (includes) {
+      if (!includes) {
+        return Promise.resolve();
+      } else {
+        return Promise.props(map(resource.includes, convertResources));
+      }
     }
   }
 }
