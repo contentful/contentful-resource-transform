@@ -26,7 +26,9 @@ function createTransform (converters) {
         convertResources(resource.items),
         convertIncludes(resource.includes)
       ).spread(function (items, includes) {
-        return xtend(resource, { items: items, includes: includes });
+        resource = xtend(resource, { items: items });
+        if (includes) resource.includes = includes;
+        return resource;
       });
     }
 

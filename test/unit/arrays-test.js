@@ -37,4 +37,20 @@ describe('transforming array resources', function () {
       });
     });
   });
+
+  it('Does not add a new includes property for Arrays', function () {
+    return collapseToIds({
+      sys: { type: 'Array' },
+      items: [
+        {
+          sys: { type: 'Entry', id: 'Whatever' }
+        }
+      ]
+    }).then(function (result) {
+      assert.equals(result, {
+        sys: { type: 'Array' },
+        items: [ 'Entry!Whatever' ],
+      });
+    });
+  });
 });
