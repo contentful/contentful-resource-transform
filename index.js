@@ -2,7 +2,7 @@
 
 module.exports = createTransform;
 
-var Promise = require('bluebird');
+var Bluebird = require('bluebird');
 var map = require('map-sync');
 var xtend = require('xtend');
 
@@ -22,7 +22,7 @@ function createTransform (converters) {
   function transform (resource) {
     var extraArgs = Array.prototype.slice.call(arguments, 1);
     if (resource.sys.type === 'Array') {
-      return Promise.join(
+      return Bluebird.join(
         convertResources(resource.items),
         convertIncludes(resource.includes)
       ).spread(function (items, includes) {
@@ -33,22 +33,22 @@ function createTransform (converters) {
     }
 
     if (resource.sys.type in converters) {
-      return Promise.resolve(converters[resource.sys.type].apply(null, arguments));
+      return Bluebird.resolve(converters[resource.sys.type].apply(null, arguments));
     } else {
-      return Promise.resolve(resource);
+      return Bluebird.resolve(resource);
     }
 
     function convertResources (array) {
-      return Promise.map(array, function (item) {
+      return Bluebird.map(array, function (item) {
         return transform.apply(null, [item].concat(extraArgs));
       });
     }
 
     function convertIncludes (includes) {
       if (!includes) {
-        return Promise.resolve();
+        return Bluebird.resolve();
       } else {
-        return Promise.props(map(resource.includes, convertResources));
+        return Bluebird.props(map(resource.includes, convertResources));
       }
     }
   }
