@@ -5,17 +5,24 @@ module.exports = createTransform;
 var Bluebird = require('bluebird');
 var map = require('map-sync');
 var xtend = require('xtend');
+var compose = require('compose-promise');
 
 module.exports = createTransform;
 
 function createTransform (converters) {
-  if (typeof converters === 'function') {
-    converters = {
-      Entry: converters,
-      Asset: converters,
-      ContentType: converters
-    };
-  }
+  converters = normalizeConverters(converters);
+
+  transform.prepend = function (otherConverters) {
+    return createTransform(
+      composeConverters(converters, normalizeConverters(otherConverters))
+    );
+  };
+
+  transform.append = function (otherConverters) {
+    return createTransform(
+      composeConverters(normalizeConverters(otherConverters), converters)
+    );
+  };
 
   return transform;
 
@@ -52,4 +59,32 @@ function createTransform (converters) {
       }
     }
   }
+}
+
+function normalizeConverters (converters) {
+  if (typeof converters === 'function') {
+    return {
+      Entry: converters,
+      Asset: converters,
+      ContentType: converters
+    };
+  } else {
+    return converters;
+  }
+}
+
+function composeConverters (f, g) {
+  var combined = {};
+
+  for (var type in f) {
+    combined[type] = g[type] ? compose(f[type], g[type]) : f[type];
+  }
+
+  for (var type in g) {
+    if (!combined[type]) {
+      combined[type] = g[type];
+    }
+  }
+
+  return combined;
 }
