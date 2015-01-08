@@ -35,6 +35,7 @@ describe('prepending transforms', function () {
 
 describe('chaining transforms', function () {
 
+  // complex example, creates a transform that goes toArray -> join -> toUpperCase
   var toUpperCaseString =
     createTransform(callMethod('join', ': '))
     .prepend(toArray)
