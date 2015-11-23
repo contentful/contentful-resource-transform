@@ -1,13 +1,12 @@
 language: node_js
 node_js:
-  - "0.8"
   - "0.10"
+  - 2
+  - 4
 notifications:
   slack:
     contentful:
       secure: "HNy+v336na/2dgINejynzZpIOzDbBzUQ0PkI4bUbisAGmui4x3fIJwhWeFNf+RecIufhvOmlZv6hH0YGY+GLGmQpmkq4dXKshWJjVgbCknvk+82aBXao6mqmhRt8FRp/gLiV9xgcz/oM6GaOfWZVXKyfm7oAPNheKOO/EtyRGB8="
 
 before_install:
-  - "npm config set ca \"\""
-  - npm config set always-auth true
-  - npm install -g 'npm@>=1.4.13 <2.0.0'
+  - if [[ $(npm --version) == "1."* ]]; then npm install -g npm@2; fi
