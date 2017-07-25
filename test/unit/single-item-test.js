@@ -8,6 +8,14 @@ const assert = buster.assert;
 
 const createTransform = require('../../');
 
+function itIgnoresUnknownTypes (transform) {
+  it('Ignores unknown types', function () {
+    return transform({ sys: { type: 'Foobar' } }).then(function (result) {
+      assert.isObject(result);
+      assert.equals(result.sys, { type: 'Foobar' });
+    });
+  });
+}
 
 describe('createTransform', function () {
   describe('from a function', function () {
@@ -58,12 +66,3 @@ describe('createTransform', function () {
     });
   });
 });
-
-function itIgnoresUnknownTypes (transform) {
-  it('Ignores unknown types', function () {
-    return transform({ sys: { type: 'Foobar' } }).then(function (result) {
-      assert.isObject(result);
-      assert.equals(result.sys, { type: 'Foobar' });
-    });
-  });
-}
