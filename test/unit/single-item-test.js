@@ -1,10 +1,7 @@
 'use strict';
 const Promise = require('bluebird');
 
-const buster = require('buster');
-const describe = buster.spec.describe;
-const it = buster.spec.it;
-const assert = buster.assert;
+const assert = require('chai').assert;
 
 const createTransform = require('../../');
 
@@ -12,7 +9,7 @@ function itIgnoresUnknownTypes (transform) {
   it('Ignores unknown types', function () {
     return transform({ sys: { type: 'Foobar' } }).then(function (result) {
       assert.isObject(result);
-      assert.equals(result.sys, { type: 'Foobar' });
+      assert.deepEqual(result.sys, { type: 'Foobar' });
     });
   });
 }
@@ -28,7 +25,7 @@ describe('createTransform', function () {
 
       it('Transforms a ' + type + ' resource', function () {
         return transform(resource).then(function (result) {
-          assert.equals(type, result);
+          assert.deepEqual(type, result);
         });
       });
     });
@@ -54,13 +51,13 @@ describe('createTransform', function () {
     it('uses the appropriate type for each transform', function () {
       return Promise.join(
         transform({ sys: { type: 'Entry' } }).then(function (result) {
-          assert.equals(result, 'It was an entry');
+          assert.deepEqual(result, 'It was an entry');
         }),
         transform({ sys: { type: 'Asset' } }).then(function (result) {
-          assert.equals(result, 'It was an asset');
+          assert.deepEqual(result, 'It was an asset');
         }),
         transform({ sys: { type: 'ContentType' } }).then(function (result) {
-          assert.equals(result, 'It was a content type');
+          assert.deepEqual(result, 'It was a content type');
         })
       );
     });
