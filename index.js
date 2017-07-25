@@ -78,12 +78,14 @@ function normalizeConverters (converters) {
 function composeConverters (f, g) {
   const combined = {};
 
-  for (var type in f) {
-    combined[type] = g[type] ? compose(f[type], g[type]) : f[type];
+  for (const type in f) {
+    if (f.hasOwnProperty(type)) {
+      combined[type] = g[type] ? compose(f[type], g[type]) : f[type];
+    }
   }
 
-  for (var type in g) {
-    if (!combined[type]) {
+  for (const type in g) {
+    if (g.hasOwnProperty(type) && !combined[type]) {
       combined[type] = g[type];
     }
   }
