@@ -2,10 +2,10 @@
 
 module.exports = createTransform;
 
-var Bluebird = require('bluebird');
-var map = require('map-sync');
-var xtend = require('xtend');
-var compose = require('compose-promise');
+const Bluebird = require('bluebird');
+const map = require('map-sync');
+const xtend = require('xtend');
+const compose = require('compose-promise');
 
 module.exports = createTransform;
 
@@ -27,14 +27,16 @@ function createTransform (converters) {
   return transform;
 
   function transform (resource) {
-    var extraArgs = Array.prototype.slice.call(arguments, 1);
+    const extraArgs = Array.prototype.slice.call(arguments, 1);
     if (resource.sys.type === 'Array') {
       return Bluebird.join(
         convertResources(resource.items),
         convertIncludes(resource.includes)
       ).spread(function (items, includes) {
         resource = xtend(resource, { items: items });
-        if (includes) resource.includes = includes;
+        if (includes) {
+          resource.includes = includes;
+        }
         return resource;
       });
     }
@@ -74,7 +76,7 @@ function normalizeConverters (converters) {
 }
 
 function composeConverters (f, g) {
-  var combined = {};
+  const combined = {};
 
   for (var type in f) {
     combined[type] = g[type] ? compose(f[type], g[type]) : f[type];

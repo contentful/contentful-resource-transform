@@ -1,14 +1,13 @@
 'use strict';
-var buster = require('buster');
-var describe = buster.spec.describe;
-var it = buster.spec.it;
-var assert = buster.assert;
+const buster = require('buster');
+const describe = buster.spec.describe;
+const it = buster.spec.it;
+const assert = buster.assert;
 
-var createTransform = require('../../');
+const createTransform = require('../../');
 
 describe('transforming array resources', function () {
-
-  var collapseToIds = createTransform(function (resource) {
+  const collapseToIds = createTransform(function (resource) {
     return resource.sys.type + '!' + resource.sys.id;
   });
 
@@ -30,9 +29,9 @@ describe('transforming array resources', function () {
     }).then(function (result) {
       assert.equals(result, {
         sys: { type: 'Array' },
-        items: [ 'Entry!Whatever' ],
+        items: ['Entry!Whatever'],
         includes: {
-          ContentType: [ 'ContentType!Yeah' ]
+          ContentType: ['ContentType!Yeah']
         }
       });
     });
@@ -49,7 +48,7 @@ describe('transforming array resources', function () {
     }).then(function (result) {
       assert.equals(result, {
         sys: { type: 'Array' },
-        items: [ 'Entry!Whatever' ],
+        items: ['Entry!Whatever']
       });
     });
   });
