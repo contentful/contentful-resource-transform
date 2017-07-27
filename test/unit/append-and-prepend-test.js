@@ -1,9 +1,6 @@
 'use strict';
 const callMethod = require('call-method');
-const buster = require('buster');
-const describe = buster.spec.describe;
-const it = buster.spec.it;
-const assert = buster.assert;
+const assert = require('chai').assert;
 
 const createTransform = require('../../');
 
@@ -20,7 +17,7 @@ describe('appending transforms', function () {
 
   it('runs the appended transform last', function () {
     return toUpperCaseString({ sys: { type: 'Entry', id: 'hello' } }).then(function (string) {
-      assert.equals(string, 'ENTRY: HELLO');
+      assert.deepEqual(string, 'ENTRY: HELLO');
     });
   });
 });
@@ -30,7 +27,7 @@ describe('prepending transforms', function () {
 
   it('runs the prepended transform first', function () {
     return toUpperCaseString({ sys: { type: 'Entry', id: 'hello' } }).then(function (string) {
-      assert.equals(string, 'ENTRY: HELLO');
+      assert.deepEqual(string, 'ENTRY: HELLO');
     });
   });
 });
@@ -44,7 +41,7 @@ describe('chaining transforms', function () {
 
   it('runs all the transforms in correct order', function () {
     return toUpperCaseString({ sys: { type: 'Entry', id: 'hello' } }).then(function (string) {
-      assert.equals(string, 'ENTRY: HELLO');
+      assert.deepEqual(string, 'ENTRY: HELLO');
     });
   });
 });

@@ -1,8 +1,5 @@
 'use strict';
-const buster = require('buster');
-const describe = buster.spec.describe;
-const it = buster.spec.it;
-const assert = buster.assert;
+const assert = require('chai').assert;
 
 const createTransform = require('../../');
 
@@ -27,7 +24,7 @@ describe('transforming array resources', function () {
         ]
       }
     }).then(function (result) {
-      assert.equals(result, {
+      assert.deepEqual(result, {
         sys: { type: 'Array' },
         items: ['Entry!Whatever'],
         includes: {
@@ -46,7 +43,7 @@ describe('transforming array resources', function () {
         }
       ]
     }).then(function (result) {
-      assert.equals(result, {
+      assert.deepEqual(result, {
         sys: { type: 'Array' },
         items: ['Entry!Whatever']
       });
