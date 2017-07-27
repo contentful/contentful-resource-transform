@@ -4,15 +4,24 @@
   "description": "Apply transforms to Contentful resources or collections thereof",
   "main": "index.js",
   "scripts": {
-    "test": "markdown-code-blocks -t javascript < README.md | node && buster-test"
+    "lint": "eslint index.js './**/*.js'",
+    "test": "npm run lint && markdown-code-blocks -t javascript < README.md | node && npm run test-unit",
+    "test-unit": "buster-test"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:contentful/contentful-resource-transform.git"
   },
   "devDependencies": {
+    "@contentful/eslint-config-backend": "^4.0.0",
     "buster": "~0.7.13",
     "call-method": "^1.0.1",
+    "eslint": "^4.3.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "markdown-code-blocks": "0.0.1"
   },
   "author": "Contentful GmbH",
